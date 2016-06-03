@@ -85,18 +85,20 @@ def cache_data(data, path):
         print('Directory doesnt exists')
 
 def cache_train_data(train_data, train_target, driver_id, unique_drivers, path):
-    if os.path.isdir(os.path.dirname(path)):
-        with h5py.File(path, 'w') as hf:
-            hf.create_dataset("train_data", data=train_data)
-            hf.create_dataset("train_target", data=train_target)
-            hf.create_dataset("driver_id", data=driver_id)
-            hf.create_dataset("unique_drivers", data=unique_drivers)
+    if not os.path.isdir('../cache'):
+        os.mkdir('../cache')
+    with h5py.File(path, 'w') as hf:
+        hf.create_dataset("train_data", data=train_data)
+        hf.create_dataset("train_target", data=train_target)
+        hf.create_dataset("driver_id", data=driver_id)
+        hf.create_dataset("unique_drivers", data=unique_drivers)
 
 def cache_test_data(test_data, test_id, path):
-    if os.path.isdir(os.path.dirname(path)):
-        with h5py.File(path, 'w') as hf:
-            hf.create_dataset("test_data", data=test_data)
-            hf.create_dataset("test_id", data=test_id)
+    if not os.path.isdir('../cache'):
+        os.mkdir('../cache')
+    with h5py.File(path, 'w') as hf:
+        hf.create_dataset("test_data", data=test_data)
+        hf.create_dataset("test_id", data=test_id)
 
 def read_train_data(img_rows, img_cols, color_type=1):
     cache_path = os.path.join('cache', 'train_r_' + str(img_rows) + '_c_' + str(img_cols) + '_t_' + str(color_type) + '.h5')
@@ -130,8 +132,8 @@ def read_test_data(img_rows, img_cols, color_type=1):
 
 img_rows = 224
 img_cols = 224
-color_type = 1
+color_type = 3
 read_train_data(img_rows, img_cols, color_type)
-read_test_data(img_rows, img_cols, color_type)
+#read_test_data(img_rows, img_cols, color_type)
 
 
